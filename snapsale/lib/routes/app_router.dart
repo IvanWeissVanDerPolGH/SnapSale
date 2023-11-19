@@ -1,84 +1,118 @@
+import 'package:snapsale/screens/RegistroDePersona/registratio_form_screen.dart';
+import 'package:snapsale/screens/RegistroDePersona/RegistroDePersonas_Screen.dart';
+import 'package:snapsale/screens/RegistroDePersona/lista_de_personas_screen.dart';
+import 'package:snapsale/screens/RegistroDePersona/person_registry_screen.dart';
+import 'package:snapsale/screens/ReservaDeTurno/form_screen.dart';
+import 'package:snapsale/screens/ReservaDeTurno/list_screen.dart';
+import 'package:snapsale/screens/ReservaDeTurno/menu_screen.dart';
+import 'package:snapsale/screens/auth/main_screen.dart';
+import 'package:snapsale/screens/Consulta/consulta_screen.dart';
+import 'package:snapsale/screens/ficha_clinica/form_screen.dart';
+import 'package:snapsale/screens/ficha_clinica/form_screen_con_reserva.dart';
+import 'package:snapsale/screens/ficha_clinica/form_screen_sin_reserva.dart';
+import 'package:snapsale/screens/ficha_clinica/list_screen.dart';
+import 'package:snapsale/screens/ficha_clinica/menu_screen.dart';
+import 'package:snapsale/screens/home/home_screen.dart';
+
+import 'package:snapsale/screens/home/log_out_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:snapsale/models/category.dart';
-import 'package:snapsale/screens/homeScreen/home_screen.dart';
-import 'package:snapsale/screens/categories/category_edit_screen.dart';
-import 'package:snapsale/screens/categories/category_list_screen.dart';
-import 'package:snapsale/screens/clients/client_edit_screen.dart';
-import 'package:snapsale/screens/clients/client_list_screen.dart';
-import 'package:snapsale/screens/invoices/invoice_screen.dart';
-import 'package:snapsale/screens/products/product_edit_screen.dart';
-import 'package:snapsale/screens/products/product_list_screen.dart';
-import 'package:snapsale/screens/sales/sale_edit_screen.dart';
-import 'package:snapsale/screens/sales/sale_list_screen.dart';
-import 'package:snapsale/services/category_service.dart';
-// Import other screens if necessary
+import 'package:snapsale/screens/auth/login_screen.dart';
+import 'package:snapsale/screens/auth/reset_password.dart';
 
 class AppRouter {
-  static final GoRouter router = GoRouter(
+  static final router = GoRouter(
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const HomeScreen(),
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: MainScreen()),
       ),
       GoRoute(
-        path: '/categoryList',
-        builder: (context, state) => const CategoryListScreen(),
-      ),
-GoRoute(
-  path: '/categoryEdit/:id',
-  builder: (context, state) {
-    // Extract category ID from state path parameters
-    final categoryId = state.pathParameters['id'];
-
-    return FutureBuilder<Category?>(
-      future: categoryId != null ? CategoryService().loadCategory(categoryId) : Future.value(null),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          // Future is complete, return the screen
-          return CategoryEditScreen(category: snapshot.data);
-        } else {
-          // While waiting for the future to complete, show a loading spinner
-          return Scaffold(
-            appBar: AppBar(title: const Text('Loading...')),
-            body: const Center(child: CircularProgressIndicator()),
-          );
-        }
-      },
-    );
-  },
-),
-
-
-      GoRoute(
-        path: '/clientList',
-        builder: (context, state) => const ClientListScreen(),
+        path: '/login',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: LoginScreen()),
       ),
       GoRoute(
-        path: '/clientEdit',
-        builder: (context, state) => const ClientEditScreen(),
+        path: '/reset_password',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ResetPassword()),
       ),
       GoRoute(
-        path: '/productList',
-        builder: (context, state) => const ProductListScreen(),
+        path: '/LogOut',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: LogOutScreen()),
       ),
       GoRoute(
-        path: '/productEdit',
-        builder: (context, state) =>  const ProductEditScreen(),
+        path: '/Home',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: HomeScreen()),
       ),
       GoRoute(
-        path: '/saleList',
-        builder: (context, state) => const SaleListScreen(),
+        path: '/RegistroDePersonasScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: RegistroDePersonasScreen()),
       ),
       GoRoute(
-        path: '/saleEdit',
-        builder: (context, state) =>  const SaleEditScreen(),
+        path: '/ConsultasScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ConsultaScreen()),
       ),
       GoRoute(
-        path: '/invoice',
-        builder: (context, state) => const InvoiceScreen(),
+        path: '/PersonRegistryScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: PersonRegistryScreen()),
       ),
-      // Add more routes here
+      GoRoute(
+        path: '/ListaDePersonasScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ListaDePersonasScreen()),
+      ),
+      GoRoute(
+        path: '/RegisterPersonScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: RegistrationFormScreen()),
+      ),
+      GoRoute(
+        path: '/ReservaDeTurnosMenuScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: TurnosMenu()),
+      ),
+      GoRoute(
+        path: '/ReservaDeTurnosFormScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ReservaDeTurnosScreen()),
+      ),
+      GoRoute(
+        path: '/ReservaDeTurnosListScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ListaDeTurnosScreen()),
+      ),
+      GoRoute(
+        path: '/FichaClinicaMenuScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: FichasMenu()),
+      ),
+      GoRoute(
+        path: '/FichaClinicaFormScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: CrearFichasMenu()),
+      ),
+      GoRoute(
+        path: '/FichaClinicaFormScreenConReserva',
+        pageBuilder: (context, state) => 
+          const MaterialPage(child: FichaClinicaFormScreenConReserva()),
+      ),
+      GoRoute(
+        path: '/FichaClinicaFormScreenSinReserva',
+        pageBuilder: (context, state) => 
+          const MaterialPage(child: FichaClinicaFormScreenSinReserva()),
+      ),
+      GoRoute(
+        path: '/FichaClinicaListScreen',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ListaDeFichasClinicasScreen()),
+      ),
     ],
   );
 }
